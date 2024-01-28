@@ -28,6 +28,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    protected static string $usernameColumn = 'email';
+
+    public static function getUsernameColumn(): string
+    {
+        return static::$usernameColumn;
+    }
+
     public function tasksCreated(): HasMany
     {
         return $this->hasMany(Task::class, 'created_by_id');
