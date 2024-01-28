@@ -12,7 +12,7 @@ class ShowTaskResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'description' => $this->description,
+            'description' => $this->description ?? '',
             'createdBy' => [
                 'id' => $this->createdBy->id,
                 'name' => $this->createdBy->name,

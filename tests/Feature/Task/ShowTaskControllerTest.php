@@ -60,4 +60,11 @@ class ShowTaskControllerTest extends TestCase
             ],
         ]);
     }
+
+    public function test_show_resource_not_found(): void
+    {
+        $this->task->delete();
+        $response = $this->actingAs($this->user)->getJson("{$this->prefix}/{$this->task->id}");
+        $response->assertStatus(404);
+    }
 }
