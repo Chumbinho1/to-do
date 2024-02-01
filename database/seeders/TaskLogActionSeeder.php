@@ -18,6 +18,10 @@ class TaskLogActionSeeder extends Seeder
                 'action' => 'Update',
                 'slug' => 'update',
             ],
+            [
+                'action' => 'Delete',
+                'slug' => 'delete',
+            ],
 
         ]);
     }

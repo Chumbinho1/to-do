@@ -98,4 +98,33 @@ class TaskController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function destroy(Task $task)
+    {
+        try {
+            DB::beginTransaction();
+            $user = request()->user();
+
+            $task->delete();
+
+            $taskLog = $task->taskLogs()->make([
+                'description' => "Task {$task->name} deleted by {$user->name}",
+            ]);
+
+            $taskLogAction = $taskLog->taskLogAction()->firstWhere('slug', 'delete');
+
+            $taskLog->user()->associate($user);
+            $taskLog->taskLogAction()->associate($taskLogAction);
+            $taskLog->save();
+            DB::commit();
+
+            return response()->noContent();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -12,9 +12,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->boolean('completed')->default(false);
+            $table->timestamp('completed_at')->nullable();
             $table->foreignId('created_by_id')->constrained('users');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

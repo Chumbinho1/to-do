@@ -12,7 +12,7 @@ class TaskFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
-            'completed' => $this->faker->boolean(),
+            'completed_at' => 2 % rand(1, 100) === 0 ? $this->faker->dateTime() : null,
             'created_by_id' => User::inRandomOrder()->first()->id,
         ];
     }
